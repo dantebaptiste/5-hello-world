@@ -7,7 +7,7 @@ jobs:
       - checkout
       - run: python sketch.py
  
-  I-Have-Code:
+  I-Have-Sketch:
     docker:
       - image: alpine:3.7
     steps:
@@ -51,7 +51,7 @@ workflows:
  Example_Workflow:
    jobs:
      - Sketch-Python
-     - I-Have-Code:
+     - I-Have-Sketch:
          requires:
            - Sketch-Python
            
@@ -65,7 +65,7 @@ workflows:
          requires:
            - Run-Test-Sketch
       
-           - I-Have-Code
+           - I-Have-Sketch
      - Now-Complete:
          requires:
            - Hold-For-Approval
