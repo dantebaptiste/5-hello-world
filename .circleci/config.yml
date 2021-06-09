@@ -25,7 +25,7 @@ jobs:
       - image: "circleci/python:3.6.4"
     steps:
       - checkout 
-      - run: python test_sketch.py 
+      - run: python sketch.py 
 
   Run-Test-Code:
     docker:
