@@ -8,7 +8,7 @@ import sketch
 class TestCalc(unittest.TestCase):
 
     def test_add(self):
-        self.assertEqual(sketch.add(10, 5), 132)
+        self.assertEqual(sketch.add(10, 5), 15)
         self.assertEqual(sketch.add(-1, 1), 0)
         self.assertEqual(sketch.add(-1, -1), -2)
 
