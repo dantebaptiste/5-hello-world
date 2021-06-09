@@ -19,14 +19,24 @@ jobs:
           command: |
             ls -al
             echo '^^^That should look familiar^^^'
-  Run-With-Node:
+
+  Run-Run:
     docker:
-      - image: circleci/node:10-browsers
+      - image: "circleci/python:3.6.4"
+    steps:
+      - checkout 
+      - run: python sketch.py 
+
+  Run-Tests:
+    docker:
+      - image: "circleci/python:3.6.4"
     steps:
       - run:
           name: Running In A Container With Node
           command: |
             node -v
+
+
   Now-Complete:
     docker:
       - image: alpine:3.7
