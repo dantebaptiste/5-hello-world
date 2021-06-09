@@ -20,12 +20,19 @@ jobs:
             ls -al
             echo '^^^That should look familiar^^^'
 
-  Run-Run:
+  Run-With-Node:
     docker:
       - image: "circleci/python:3.6.4"
     steps:
       - checkout 
-      - run: python sketch.py 
+      - run: python test_sketch.py 
+
+  Run-Test-Code:
+    docker:
+      - image: "circleci/python:3.6.4"
+    steps:
+      - checkout 
+      - run: python test_sketch.py 
 
   Run-Tests:
     docker:
@@ -54,9 +61,15 @@ workflows:
      - I-Have-Code:
          requires:
            - Hello-World
+           
      - Run-With-Node:
          requires:
            - Hello-World
+
+     - Run-Test-Code:
+        requires:
+          - test_sketch.py
+
      - Hold-For-Approval:
          type: approval
          requires:
