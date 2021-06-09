@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   Sketch-Python:
     docker:
-      - image: alpine:3.7
+      - image: "circleci/python:3.6.4" 
     steps:
       - run: python sketch.py
  
