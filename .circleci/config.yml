@@ -1,14 +1,11 @@
 version: 2.1
 jobs:
-  Hello-World:
+  Sketch-Python:
     docker:
       - image: alpine:3.7
     steps:
-      - run:
-          name: Hello World
-          command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+      - run: python sketch.py
+ 
   I-Have-Code:
     docker:
       - image: alpine:3.7
@@ -22,7 +19,7 @@ jobs:
 
 
 
-  Run-Test-Code:
+  Run-Test-Sketch:
     docker:
       - image: "circleci/python:3.6.4"
     steps:
@@ -52,20 +49,20 @@ workflows:
  version: 2
  Example_Workflow:
    jobs:
-     - Hello-World
+     - Sketch-Python
      - I-Have-Code:
          requires:
-           - Hello-World
+           - Sketch-Python
            
 
-     - Run-Test-Code:
+     - Run-Test-Sketch:
         requires:
-          - Hello-World
+          - Sketch-Python
 
      - Hold-For-Approval:
          type: approval
          requires:
-           - Run-Test-Code
+           - Run-Test-Sketch
       
            - I-Have-Code
      - Now-Complete:
