@@ -68,7 +68,7 @@ workflows:
 
      - Run-Test-Code:
         requires:
-          - test_sketch.py
+          - Hello-World
 
      - Hold-For-Approval:
          type: approval
