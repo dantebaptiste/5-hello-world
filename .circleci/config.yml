@@ -1,14 +1,71 @@
 version: 2.1
-
-welcome: circleci/welcome-orb@0.4.1
-
 jobs:
-  build:
+  Sketch-Python:
+    docker:
+      - image: "circleci/python:3.6.4" 
+    steps:
+      - checkout
+      - run: python sketch.py
+ 
+  I-Have-Sketch:
+    docker:
+      - image: alpine:3.7
+    steps:
+      - checkout
+      - run:
+          name: Code Has Arrived
+          command: |
+            ls -al
+            echo '^^^That should look familiar^^^'
+
+
+
+  Run-Test-Sketch:
+    docker:
+      - image: "circleci/python:3.6.4"
+    steps:
+      - checkout 
+      - run: python test_sketch.py 
+
+  Run-Tests:
+    docker:
+      - image: "circleci/python:3.6.4"
+    steps:
+      - run:
+          name: Running In A Container With Node
+          command: |
+            node -v
+
+
+  Now-Complete:
     docker:
       - image: alpine:3.7
     steps:
       - run:
-          name: The First Step
+          name: Approval Complete
           command: |
-            echo 'Hello World!'
-            echo 'This is the delivery pipeline'
+            echo 'Do work once the approval has completed'
+
+workflows:
+ version: 2
+ Example_Workflow:
+   jobs:
+     - Sketch-Python
+     - I-Have-Sketch:
+         requires:
+           - Sketch-Python
+           
+
+     - Run-Test-Sketch:
+        requires:
+          - Sketch-Python
+
+     - Hold-For-Approval:
+         type: approval
+         requires:
+           - Run-Test-Sketch
+      
+           - I-Have-Sketch
+     - Now-Complete:
+         requires:
+           - Hold-For-Approval
