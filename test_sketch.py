@@ -1,7 +1,7 @@
 import unittest
 import decimal
 import sys
-sys.path.insert(1, '/Users/dantebaptiste/PycharmProjects/5HW')
+#sys.path.insert(1, '/Users/dantebaptiste/PycharmProjects/5HW')
 import sketch
 
 
