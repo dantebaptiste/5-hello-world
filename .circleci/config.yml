@@ -1,24 +1,12 @@
 version: 2.1
 jobs:
+
   Sketch-Python:
     docker:
       - image: "circleci/python:3.6.4" 
     steps:
       - checkout
       - run: python sketch.py
- 
-  I-Have-Sketch:
-    docker:
-      - image: alpine:3.7
-    steps:
-      - checkout
-      - run:
-          name: Code Has Arrived
-          command: |
-            ls -al
-            echo '^^^That should look familiar^^^'
-
-
 
   Run-Test-Sketch:
     docker:
@@ -27,15 +15,21 @@ jobs:
       - checkout 
       - run: python test_sketch.py 
 
-  Run-Tests:
+
+  Employee-Python:
     docker:
       - image: "circleci/python:3.6.4"
     steps:
-      - run:
-          name: Running In A Container With Node
-          command: |
-            node -v
+      - checkout
+      - run: python employee.py
 
+  Run-Test-Employee:
+    docker: 
+      - image: "circleci/python:3.6.4"
+
+    steps:
+      - checkout
+      - run: python test_employee.py
 
   Now-Complete:
     docker:
@@ -50,22 +44,24 @@ workflows:
  version: 2
  Example_Workflow:
    jobs:
-     - Sketch-Python
-     - I-Have-Sketch:
-         requires:
-           - Sketch-Python
-           
+
+     - Sketch-Python  
+     - Employee-Python 
 
      - Run-Test-Sketch:
         requires:
           - Sketch-Python
 
+     - Run-Test-Employee:
+        requires:
+         - Employee-Python
+
      - Hold-For-Approval:
          type: approval
          requires:
            - Run-Test-Sketch
-      
-           - I-Have-Sketch
+           - Run-Test-Employee
+
      - Now-Complete:
          requires:
            - Hold-For-Approval
